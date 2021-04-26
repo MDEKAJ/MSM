@@ -21,4 +21,11 @@ describe("filter", () => {
     const result = sut.deals;
     expect(result.length).toEqual(4);
   });
+
+  it("should return 4 deals when productFilter is set to broadband and tv", () => {
+    sut.setProductFilter("broadband");
+    sut.setProductFilter("tv");
+    const result = sut.deals;
+    expect(result.length).toEqual(4);
+  });
 });
