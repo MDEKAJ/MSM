@@ -35,4 +35,11 @@ describe("filter", () => {
     const result = sut.deals;
     expect(result.length).toEqual(1);
   });
+
+  it("should return 1 sky only deal when providerFilter is set to Sky", () => {
+    sut.setProviderFilter("1");
+    const result = sut.deals;
+    expect(result.legnth).toEqual(1);
+    expect(result[0].provider.id).toEqual(1);
+  });
 });
