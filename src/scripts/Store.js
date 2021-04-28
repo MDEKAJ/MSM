@@ -26,6 +26,10 @@ class Store extends Observable {
     );
   }
 
+  get productFilters() {
+    return this.state.productFilters.sort().join("").toLowerCase();
+  }
+
   DealOfferedByProviderFilterState(deal) {
     return (
       !this.ProviderFilterStateSet() ||
