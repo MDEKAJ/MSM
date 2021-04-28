@@ -52,3 +52,5 @@ describe("filter", () => {
     expect(result[0].provider.id).toEqual(3);
   });
 });
+
+// Further testing would include tests to check if product/provider is being set correctly
