@@ -37,18 +37,18 @@ describe("filter", () => {
   });
 
   it("should return 1 sky only deal when providerFilter is set to Sky", () => {
-    sut.setProviderFilter("1");
+    sut.setProviderFilter(1);
     const result = sut.deals;
     expect(result.length).toEqual(1);
     expect(result[0].provider.id).toEqual(1);
   });
 
   it("should return 2 deals when providerFilter is set to BT and productFilter is set to broadband and TV", () => {
-    sut.setProviderFilter(2);
+    sut.setProviderFilter(3);
     sut.setProductFilter("broadband");
     sut.setProductFilter("tv");
     const result = sut.deals;
     expect(result.length).toEqual(2);
-    expect(result[0].provider.id).toEqual(2);
+    expect(result[0].provider.id).toEqual(3);
   });
 });
