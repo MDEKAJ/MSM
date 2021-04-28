@@ -6,8 +6,9 @@ class Store extends Observable {
     this.state = {
       deals: [],
       productFilters: [],
-      providerFilter: null
+      providerFilter: null,
     };
+    this.filterState = this.filterState.bind(this);
   }
 
   get deals() {
@@ -15,7 +16,55 @@ class Store extends Observable {
   }
 
   filter() {
-    return this.state.deals;
+    return this.state.deals.filter(this.filterState);
+  }
+
+  filterState(deal) {
+    return (
+      this.DealOfferedByProviderFilterState(deal) &&
+      this.DealProductTypesFromFilterState(deal)
+    );
+  }
+
+  get productFilters() {
+    return this.state.productFilters.sort().join("").toLowerCase();
+  }
+
+  DealOfferedByProviderFilterState(deal) {
+    return (
+      !this.ProviderFilterStateSet() ||
+      deal.provider.id === this.state.providerFilter
+    );
+  }
+
+  ProviderFilterStateSet() {
+    return !!this.state.providerFilter;
+  }
+
+  DealProductTypesFromFilterState(deal) {
+    return (
+      !this.ProductFilterStateSet() ||
+      this.DealProductsForFiltering(deal) === this.productFilters
+    );
+  }
+
+  ProductFilterStateSet() {
+    return this.state.productFilters && this.state.productFilters.length > 0;
+  }
+
+  DealProductsForFiltering(deal) {
+    return deal.productTypes
+      .filter((productType) => productType !== "Phone")
+      .map((productType) =>
+        productType === "Fibre Broadband"
+          ? "broadband"
+          : productType.toLowerCase()
+      )
+      .filter(
+        (productType, index, array) => array.indexOf(productType) === index
+      )
+      .sort()
+      .join("");
   }
 
   setDeals(data) {
